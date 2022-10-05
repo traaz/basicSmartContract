@@ -1,3 +1,3 @@
 # basicSmartContract
 
-use test ethereum not real ethereum :)
+used test ethereum not real ethereum :)
