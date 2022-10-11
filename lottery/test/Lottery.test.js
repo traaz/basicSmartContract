@@ -113,4 +113,30 @@ describe('Lottery Contract', () => {
        assert(difference > web3.utils.toWei('1.8','ether'));
      
     });
+
+    it('checks there are no players after pick winner', async() =>{
+        await lottery.methods.enter().send({
+            from: accounts[0],
+            value: web3.utils.toWei('2','ether')
+        });
+        await lottery.methods.pickWinner().send({
+            from: accounts[0]
+    });
+        const players= await lottery.methods.getPlayers().call();
+        assert(players.length ==0);
+    });
+
+    it('checks the lottery balance is empty after pick winner is called', async() => {
+        await lottery.methods.enter().send({
+            from: accounts[0],
+            value: web3.utils.toWei('2','ether')
+        });
+        await lottery.methods.pickWinner().send({
+            from:accounts[0]
+        })
+        const balance =  await web3.eth.getBalance(lottery.options.address); //contractin dagitildigi adresteki bakiyeyi aldik
+        assert(balance ==0 );
+    })
+
+    
 });
